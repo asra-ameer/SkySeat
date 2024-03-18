@@ -1,5 +1,4 @@
-import javax.xml.namespace.QName;
-import java.io.FileWriter;
+import java.io.*;
 import java.io.IOException;
 
 public class Ticket {
@@ -50,7 +49,7 @@ public class Ticket {
             System.out.println();
             System.out.println("Ticket info \nRow: "+row+" \nSeat no: "+seat+" \nPrice : "+price);
             System.out.println();
-            person.personinfo();
+            person.person_info();
             System.out.println();
 
     }
@@ -69,4 +68,17 @@ public class Ticket {
             throw new RuntimeException(e);
         }
     }
+    public void delete_ticket_file(){
+        try {
+            File file=new File(row+seat+".txt");
+            boolean check=file.delete();
+            if(!check){
+                System.out.println("Some error occurred while deleting the file");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }

@@ -3,27 +3,43 @@ import java.util.Scanner;
 
 public class PlaneManagement {
  static int count=0;
-
  static Ticket [] tickets=new Ticket[52];
     static int[][] seat_management_system = new int[4][];
-    static Scanner readinput = new Scanner(System.in);
+    static Scanner read_input = new Scanner(System.in);
 
     public static Person get_user_info(){
         /* This Method get input from user and store it
-        those inputs are stored in Person class in a cont
+        those inputs are stored in Person class in a constructor
         @return name,surname,email
          */
-        System.out.print("Enter your name:");
-        String name = readinput.nextLine();
+
+            System.out.print("Enter your name:");
+        String name = null;
+        try {
+            name = read_input.nextLine();
+        } catch (Exception e) {
+            System.out.println("Enter a valid name");
+        }
+
         System.out.print("Enter your surname:");
-        String surname = readinput.nextLine();
+        String surname = null;
+        try {
+            surname = read_input.nextLine();
+        } catch (Exception e) {
+            System.out.println("Enter a valid surname");
+        }
+
         System.out.print("Enter your email:");
-        String email = readinput.nextLine();
-        Person object=new Person(name,surname,email);
-        return object;
-
-
+        String email = null;
+        try {
+            email = read_input.nextLine();
+        } catch (Exception e) {
+            System.out.println("Enter a valid email");
+        }
+        return new Person(name,surname,email);
     }
+
+
     public static int seat_price( int  user_input_seat_no){
         /*
          This Method return seat price with corresponding if-else condition
@@ -47,25 +63,25 @@ public class PlaneManagement {
         @params  person information
         @return person information
         */
-        Scanner readinput = new Scanner(System.in);
+        Scanner read_input = new Scanner(System.in);
+        System.out.print("\nEnter a Row Letter: ");
 
-        System.out.print("\nEnter the Row: ");
         String user_input_row_letter = null;
         try {
-            user_input_row_letter = readinput.nextLine().toUpperCase();
+            user_input_row_letter = read_input.nextLine().toUpperCase();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
 
         switch (user_input_row_letter) {
-           
+
             case "A":
 
-                System.out.print("Enter the Seat No:");
+                System.out.print("Enter a Seat No:");
                 int user_input_seat_no = 0;
                 try {
-                    user_input_seat_no = readinput.nextInt();
+                    user_input_seat_no = read_input.nextInt();
 
 
                     if (user_input_seat_no > 0 && user_input_seat_no < 15) {
@@ -78,7 +94,7 @@ public class PlaneManagement {
                            tickets[count]=ticket;
                            count+=1;
                             System.out.println();
-                            System.out.println("You booked your seat successfully\nThank you for choosing our airline.Have a pleasant flight");
+                            System.out.println("You booked your seat successfully\nThank you for choosing our airline.Have a pleasant flight!");
                             ticket.save_file();
 
 
@@ -100,7 +116,7 @@ public class PlaneManagement {
 
                 System.out.print("Enter the seat number:");
                 try {
-                    user_input_seat_no = readinput.nextInt();
+                    user_input_seat_no = read_input.nextInt();
                     if (user_input_seat_no > 0 && user_input_seat_no < 13) {
                         if (seat_management_system[1][user_input_seat_no - 1] == 0) {
                             seat_management_system[1][user_input_seat_no - 1] = 1;
@@ -111,7 +127,7 @@ public class PlaneManagement {
                             tickets[count]=ticket;
                             count+=1;
                             System.out.println();
-                            System.out.println("You booked your seat successfully\nThank you for choosing our airline.Have a pleasant flight ");
+                            System.out.println("You booked your seat successfully\nThank you for choosing our airline.Have a pleasant flight! ");
                             ticket.save_file();
 
                         } else{
@@ -130,7 +146,7 @@ public class PlaneManagement {
 
                 System.out.print("Enter the seat number:");
                 try {
-                    user_input_seat_no = readinput.nextInt();
+                    user_input_seat_no = read_input.nextInt();
                     if (user_input_seat_no > 0 && user_input_seat_no < 13) {
                         if (seat_management_system[2][user_input_seat_no - 1] == 0) {
                             seat_management_system[2][user_input_seat_no - 1] = 1;
@@ -140,7 +156,7 @@ public class PlaneManagement {
                             Ticket ticket=new Ticket(user_input_row_letter, user_input_seat_no,Ticket_price,customer);
                             tickets[count]=ticket;
                             count+=1;
-                            System.out.println("\nYou booked your seat successfully\nThank you for choosing our airline.Have a pleasant flight ");
+                            System.out.println("\nYou booked your seat successfully\nThank you for choosing our airline.Have a pleasant flight! ");
                             ticket.save_file();
 
 
@@ -160,7 +176,7 @@ public class PlaneManagement {
 
                 System.out.print("Enter the seat number:");
                 try {
-                    user_input_seat_no = readinput.nextInt();
+                    user_input_seat_no = read_input.nextInt();
                     if (user_input_seat_no > 0 && user_input_seat_no < 15) {
                         if (seat_management_system[3][user_input_seat_no - 1] == 0) {
                             seat_management_system[3][user_input_seat_no - 1] = 1;
@@ -171,7 +187,7 @@ public class PlaneManagement {
                             tickets[count]=ticket;
                             count+=1;
                             System.out.println();
-                            System.out.println("You booked your seat successfully\nThank you for choosing our airline.Have a pleasant flight ");
+                            System.out.println("You booked your seat successfully\nThank you for choosing our airline.Have a pleasant flight! ");
                             ticket.save_file();
 
 
@@ -223,15 +239,15 @@ public class PlaneManagement {
                     if (seat_management_system[0][user_input_seat_no - 1] == 1) {
                         seat_management_system[0][user_input_seat_no - 1] = 0;
 
-
                         boolean state=false;
                         for(int i =0;i<count;i++){
                             //what the below line says is this a constructor ah?
                             Ticket data = tickets[i];
+
                             String row_no = data.getRow();
                             int seat_no = data.getSeat();
                             if (Objects.equals(row_no, user_input_row_letter) && seat_no == user_input_seat_no) {
-
+                                data.delete_ticket_file();
                                 for (int a=i;a<count-1;a++){
                                     tickets[a]=tickets[a+1];
                                 }
@@ -250,10 +266,10 @@ public class PlaneManagement {
                         }
 
 
-                        System.out.println("You have cancel your seat succuessfully");
+                        System.out.println("You have cancel your seat successfully");
                     }
                 } else {
-                    System.out.println("Invaild seat number");
+                    System.out.println("Invalid seat number");
                 }
                 System.out.println();
                 break;
@@ -271,10 +287,11 @@ public class PlaneManagement {
                         boolean state=false;
                         for(int i =0;i<count;i++){
                             Ticket data = tickets[i];
+                            data.delete_ticket_file();
                             String row_no = data.getRow();
                             int seat_no = data.getSeat();
                             if (Objects.equals(row_no, user_input_row_letter) && seat_no == user_input_seat_no) {
-
+                                 data.delete_ticket_file();
                                 for (int a=i;a<count-1;a++){
                                     tickets[a]=tickets[a+1];
                                 }
@@ -293,16 +310,16 @@ public class PlaneManagement {
                         }
 
 
-                        System.out.println("You have cancel your seat succuessfully");
+                        System.out.println("You have cancel your seat successfully");
                     }
                 } else {
-                    System.out.println("Invaild seat number");
+                    System.out.println("Invalid seat number");
                 }
                 System.out.println();
                 break;
 
             case "C":
-                System.out.println("in C");
+
                 System.out.print("Enter the seat number:");
                 user_input_seat_no = readinput.nextInt();
                 if (user_input_seat_no > 0 && user_input_seat_no < 13) {
@@ -313,10 +330,11 @@ public class PlaneManagement {
                         boolean state=false;
                         for(int i =0;i<count;i++){
                             Ticket data = tickets[i];
+                            data.delete_ticket_file();
                             String row_no = data.getRow();
                             int seat_no = data.getSeat();
                             if (Objects.equals(row_no, user_input_row_letter) && seat_no == user_input_seat_no) {
-
+                                data.delete_ticket_file();
                                 for (int a=i;a<count-1;a++){
                                     tickets[a]=tickets[a+1];
                                 }
@@ -335,18 +353,18 @@ public class PlaneManagement {
                         }
 
 
-                        System.out.println("You have cancel your seat sucuessfully");
+                        System.out.println("You have cancel your seat successfully");
 
 
                     }
                 } else {
-                    System.out.println("Invaild seat number");
+                    System.out.println("Invalid seat number");
                 }
                 System.out.println();
                 break;
 
             case "D":
-                System.out.println("in D");
+
                 System.out.print("Enter the seat number:");
                 user_input_seat_no = readinput.nextInt();
                 if (user_input_seat_no > 0 && user_input_seat_no < 15) {
@@ -357,10 +375,11 @@ public class PlaneManagement {
                         boolean state=false;
                         for(int i =0;i<count;i++){
                             Ticket data = tickets[i];
+                            data.delete_ticket_file();
                             String row_no = data.getRow();
                             int seat_no = data.getSeat();
                             if (Objects.equals(row_no, user_input_row_letter) && seat_no == user_input_seat_no) {
-
+                                data.delete_ticket_file();
                                 for (int a=i;a<count-1;a++){
                                     tickets[a]=tickets[a+1];
                                 }
@@ -378,16 +397,16 @@ public class PlaneManagement {
                             System.out.println("No data found in that seat");
                         }
 
-                        System.out.println("You have cancel your seat sucuessfully");
+                        System.out.println("You have cancel your seat successfully");
                     }
                 } else {
-                    System.out.println("Invaild seat number");
+                    System.out.println("Invalid seat number");
                 }
                 System.out.println();
                 break;
 
             default:
-                System.out.println("Invaild row letter");
+                System.out.println("Invalid row letter");
                 System.out.println();
                 break;
 
@@ -433,17 +452,19 @@ public class PlaneManagement {
     public static void show_seating_plan() {
 
         for (int i = 0; i < seat_management_system.length; i++) {
-            if (i == 2) {
-                System.out.println();
-            }
-            for (int j = 0; j < seat_management_system[i].length; j++) {
-                if (seat_management_system[i][j] == 1) {
-                    System.out.print("X ");
-                } else {
-                    System.out.print("O ");
-                }
-            }
-            System.out.println();
+
+                    for (int j = 0; j < seat_management_system[i].length; j++) {
+
+                        if (i == 2) {
+                            System.out.println();
+                        }
+                        if (seat_management_system[i][j] == 1) {
+                            System.out.print("X ");
+                        } else {
+                            System.out.print("O ");
+                        }
+                    }
+                    System.out.println();
         }
     }
     public static void ticket_info() {
@@ -606,7 +627,7 @@ public class PlaneManagement {
     public static void user_menu(){
         int user_input=7;
         do {
-
+            user_input=7;
             System.out.println("""
                          **************************************************
     
@@ -632,7 +653,7 @@ public class PlaneManagement {
   
                                                                            """);
             Scanner readinput=new Scanner(System.in);
-            user_input=7;
+
             System.out.print("Please select an option:");
             try {
                 user_input = readinput.nextInt();

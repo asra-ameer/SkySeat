@@ -1,5 +1,3 @@
-import java.sql.SQLOutput;
-
 public class Person {
     private String name;
     private String surname;
@@ -34,7 +32,7 @@ public class Person {
         this.surname = surname;
         this.email = email;
     }
-    public void personinfo() {
+    public void person_info() {
          System.out.printf("Person information \nName: %s\nSurname: %s\nEmail: %s\n", name  , surname, email);
 
     }
