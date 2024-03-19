@@ -57,12 +57,14 @@ public class Ticket {
 
         try {
             FileWriter object =new FileWriter(row+seat+".txt");
+
             object.write("Name: "+person.getName()+"\n");
             object.write("Surname: "+person.getSurname()+"\n");
             object.write("Email: "+person.getEmail()+"\n");
             object.write("Row: "+row+"\n");
             object.write("Seat: "+seat+"\n");
             object.write("Price: "+price+"\n");
+
             object.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -72,6 +74,7 @@ public class Ticket {
         try {
             File file=new File(row+seat+".txt");
             boolean check=file.delete();
+
             if(!check){
                 System.out.println("Some error occurred while deleting the file");
             }
